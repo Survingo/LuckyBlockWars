@@ -1,5 +1,5 @@
 name: Lucky Block Wars
-main: Survingo\LBW\LuckyBlockWars
+main: Survingo\LuckyBlockWars\LuckyBlockWars
 version: 1.0-alpha#1
 author: Survingo
 api: [1.13.0,2.0.0]
