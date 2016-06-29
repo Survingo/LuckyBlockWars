@@ -28,13 +28,13 @@ class LuckyBlockWars extends PluginBase implements Listener{
    const NORMAL_STUFF = array(
       
       );
-   const LUCKY_STUFF = (
+   const LUCKY_STUFF = array(
       
       );
    
   public function onBlockBreak(BlockBreakEvent $event){
      if($event->getBlock()->getId() == $this->getConfig()->get("luckyblock-id")){
-        if($event->getPlayer()->hasPermission("lbw.use")){
+        if($event->getPlayer()->hasPermission("lucky-block-wars.use")){
            switch (mt_rand(1,3)){
               case 1: LuckyBlockWars::getRandom(LuckyBlockWars::UNLUCKY_STUFF);
               break;
