@@ -2,27 +2,28 @@
 
 namespace Survingo\LuckyBlockWars;
 
-class GameManager{
+use pocketmine\plugin\PluginBase;
+use pocketmine\Server;
+use Survingo\LuckyBlockWars\tasks\StartGameTask;
+use Survingo\LuckyBlockWars\tasks\PopupWaitTask;
+
+class GameManager extends PluginBase{
   
   public $running = false;
   
   public $players = array();
   
-  public function __construct(LuckyBlockWars $plugin){
-    $this->plugin = $plugin;
-    $this->running = false;
-  }
-  
   public function startGame(array $players){
-    $this->running = true;
-    $this->players = $players;
-    $player1 = $players[1];
-    $player2 = $players[2];
-    $player3 = $players[3];
-    $player4 = $players[4];
-    foreach($players as $player){
-      $player->sendMessage("[LuckyBlockWars] Starting game...");
-      $player->setHealth(20);
+    $plugin = new LuckyBlockWars();
+    if(count($this->players < 5)){
+      $this->running = true;
+      foreach($players as $player){
+        $player->sendMessage("[LuckyBlockWars] Starting game...");
+        Server::getInstance()->getScheduler()->scheduleRepeatingTask(new StartGameTask($plugin), 20);
+        Server::getInstance()->getScheduler()->cancelTask($this->popupWait->getTaskId());
+      }
+    }else{
+      $this->popupWait = Server::getInstance()->getScheduler()->scheduleRepeatingTask(new PopupWaitTask($plugin), 20);
     }
   }
   
