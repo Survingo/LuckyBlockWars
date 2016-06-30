@@ -26,11 +26,11 @@ class LuckyBlockWars extends PluginBase implements Listener{
      if($event->getBlock()->getId() == $this->getConfig()->get("luckyblock-id")){
         if($event->getPlayer()->hasPermission("lucky-block-wars.use")){
            switch (mt_rand(1,3)){
-              case 1: $this->getRandom($this->unluckyBlockStuff);
+              case 1: $this->getRandom($this->unluckyBlockStuff($event->getBlock()));
               break;
-              case 2: $this->getRandom($this->normalBlockStuff);
+              case 2: $this->getRandom($this->normalBlockStuff($event->getBlock()));
               break;
-              case 3: $this->getRandom($this->luckyBlockSTUFF);
+              case 3: $this->getRandom($this->luckyBlockStuff($event->getBlock()));
               break;
            }
         }else{
