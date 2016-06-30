@@ -1,6 +1,6 @@
 name: Lucky Block Wars
 main: Survingo\LuckyBlockWars\LuckyBlockWars
-version: 1.0-alpha#1
+version: Alpha
 author: Survingo
 api: [1.13.0,2.0.0]
 description: The MCPC mini-game Lucky Block Wars for your PocketMine server
