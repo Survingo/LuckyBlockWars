@@ -19,11 +19,19 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\Listener;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
 
 class LuckyBlockWars extends PluginBase implements Listener{
    
+  public function onEnable(){
+     $this->getServer()->getLogger()->info("[" . $this->getDescription()->getName() . "] Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
+     $this->saveResource("config.yml");//$this->saveDefaultConfig();
+     $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+     $this->cfg = $cfg->getAll();
+  }
+  
   public function onBlockBreak(BlockBreakEvent $event){
-     if($event->getBlock()->getId() == $this->getConfig()->get("luckyblock-id")){
+     if($event->getBlock()->getId() == $this->cfg["luckyblock-id"]){
         if($event->getPlayer()->hasPermission("lucky-block-wars.use")){
            switch (mt_rand(1,3)){
               case 1: $this->getRandom($this->unluckyBlockStuff($event->getBlock()));
@@ -34,7 +42,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
               break;
            }
         }else{
-           $event->getPlayer()->sendMessage($this->getConfig()->get("not_allowed"));
+           $event->getPlayer()->sendMessage($this->cfg["not_allowed"]);
         }
      }
   }
@@ -45,7 +53,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
  
  public function unluckyBlockStuff($block){
     return array(
-       $boom = new \pocketmine\level\Explosion($block, mt_rand($this->getConfig()->get("explosion_min"), $this->getConfig()->get("explosion_max")));
+       $boom = new \pocketmine\level\Explosion($block, mt_rand($this->cfg["explosion_min"], $this->cfg["explosion_max"]));
        $boom->explodeA();
  );}
  
