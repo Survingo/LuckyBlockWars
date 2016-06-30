@@ -1,0 +1,8 @@
+# Choose which block should be
+# a lucky block
+luckyblock-id: 19
+
+# Choose how big should be
+# the unlucky explosion
+explosion-min: 1
+explosion-max: 3
