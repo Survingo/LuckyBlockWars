@@ -23,6 +23,8 @@ use pocketmine\utils\Config;
 
 class LuckyBlockWars extends PluginBase implements Listener{
    
+  public $running = false;
+   
   public function onEnable(){
      $this->getServer()->getLogger()->info("[" . $this->getDescription()->getName() . "] Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
      $this->saveResource("config.yml");//$this->saveDefaultConfig();
@@ -66,5 +68,18 @@ class LuckyBlockWars extends PluginBase implements Listener{
     return array(
        //$test->test();
  );}
+ 
+ public function startGame(array $players){
+    if(count($this->players == $this->cfg["needed_players"])){
+       $this->running = true;
+       foreach($players as $player){
+          $player->sendMessage("[LuckyBlockWars] Starting game...");
+          $this->getServer()->getScheduler()->scheduleRepeatingTask(new StartGameTask($plugin), 20)->getTaskId();
+          $this->getServer()->getScheduler()->cancelTask($this->popupWait);
+       }
+    }else{
+      $this->popupWait = $this->getServer()->getScheduler()->scheduleRepeatingTask(new PopupWaitTask($plugin), 20)->getTaskId();
+    }
+  }
  
 }
