@@ -16,6 +16,7 @@ limitations under the License.
 namespace Survingo\LuckyBlockWars;
 
 use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\Listener;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
@@ -69,8 +70,18 @@ class LuckyBlockWars extends PluginBase implements Listener{
        //$test->test();
  );}
  
+ public function onSignChange(SignChangeEvent $event){
+    //add to config
+ }
+ 
+ public function onInteract(PlayerInteractEvent $event){
+    if($event->getBlock()->getX() === $this->cfg["sign-x"] and $event->getBlock()->getY() === $this->cfg["sign-y"] and $event->getBlock()->getZ() === $this->cfg["sign-z"]){
+       //join
+    }
+ }
+ 
  public function startGame(array $players){
-    if(count($this->players == $this->cfg["needed_players"])){
+    if(count($this->players == $this->cfg["needed-players"])){
        $this->running = true;
        foreach($players as $player){
           $player->sendMessage("[LuckyBlockWars] Starting game...");
