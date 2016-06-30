@@ -25,6 +25,8 @@ use pocketmine\utils\Config;
 class LuckyBlockWars extends PluginBase implements Listener{
    
   public $running = false;
+  
+  public $players = array();
    
   public function onEnable(){
      $this->getServer()->getLogger()->info("[" . $this->getDescription()->getName() . "] Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
