@@ -29,6 +29,9 @@ game-is-not-running: "§cYou can not break Lucky Blocks while you are not in a g
 # use a lucky block
 not-allowed-to-use-luckyblock: "§cYou are not allowed to use Lucky Blocks!"
 
+# Do not edit the following part if
+# you do not know what it mean
+
 # Location where the players will
 # stay while there are waiting
 lobby-x:
