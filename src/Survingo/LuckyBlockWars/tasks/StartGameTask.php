@@ -15,6 +15,7 @@ limitations under the License.
 
 namespace Survingo\LuckyBlockWars\tasks;
 
+use pocketmine\level\Position;
 use pocketmine\scheduler\PluginTask;
 use pocketmine\scheduler\ServerScheduler;
 use Survingo\LuckyBlockWars\LuckyBlockWars;
@@ -35,10 +36,10 @@ class StartGameTask extends PluginTask{
     foreach($this->plugin->getServer()->getPlayer($this->plugin->players) as $player){
       $player->sendPopup("§eLucky Block Wars will start in §6{$this->seconds} §e" . ($this->seconds <=1 ? "second" : "seconds"));
       if($this->seconds == 1){
-        $player->teleport(new Vector3($this->plugin->cfg["join_x"], $this->plugin->cfg["join_y"], $this->plugin->cfg["join_z"]));
+        $player->teleport(new Position($this->plugin->cfg["join-x"], $this->plugin->cfg["join-y"], $this->plugin->cfg["join-z"], $this->plugin->cfg["join-world"]));
         $this->plugin->running = true;
         $this->seconds = 20;
-        Tasks::cancelTask($this->getTaskId());
+        ServerScheduler::cancelTask($this->getTaskId());
       }
     }
   }
