@@ -20,6 +20,9 @@ permissions:
    lbw.game.use:
     default: true
     description: "Allows using Lucky Blocks while the player is in-game"
+   lbw.game.create-signs:
+    default: op
+    description: "Allows creating signs to join a game"
  lbw.command:
   default: true
   description: "Access key for commands"
