@@ -108,8 +108,19 @@ class LuckyBlockWars extends PluginBase implements Listener{
        $this->getConfig()->set("sign-z", $event->getBlock()->getZ());
        $this->getConfig()->save();
        $event->setLine(0, "§l[§6L§eB§cW§f]");
-       $event->setLine(3, "§aJoin");
+       $event->setLine(1, "§aJoin");
     }
+ }
+ 
+ public function arraySign(Vector3 $pos, $level){
+    return [
+       "coords" => [
+          "x" => $pos->x,
+          "y" => $pos->y,
+          "z" => $pos->z
+          ],
+       "level" => $level
+       ];
  }
  
  public function addToGame(Player $gamer){
