@@ -42,22 +42,26 @@ class LuckyBlockWars extends PluginBase implements Listener{
   
   public function onDisable(){
      $this->getServer()->getLogger()->info($this->prefix . "Disabling plugin...");
-     $this->
   }
   
   public function onBlockBreak(BlockBreakEvent $event){
      if($event->getBlock()->getId() == $this->cfg["luckyblock-id"]){
-        if($event->getPlayer()->hasPermission("lucky-block-wars.use")){
-           switch (mt_rand(1,3)){
-              case 1: $this->getRandom($this->unluckyBlockStuff($event->getBlock()));
-              break;
-              case 2: $this->getRandom($this->normalBlockStuff($event->getBlock()));
-              break;
-              case 3: $this->getRandom($this->luckyBlockStuff($event->getBlock()));
-              break;
+        if($this->running === true){
+           if($event->getPlayer()->hasPermission("lucky-block-wars.game.use")){
+              switch (mt_rand(1,3)){
+                 case 1: $this->getRandom($this->unluckyBlockStuff($event->getBlock()));
+                 break;
+                 case 2: $this->getRandom($this->normalBlockStuff($event->getBlock()));
+                 break;
+                 case 3: $this->getRandom($this->luckyBlockStuff($event->getBlock()));
+                 break;
+              }
+           }else{
+              $event->setCancelled(true);
+              $event->getPlayer()->sendMessage($this->cfg["not-allowed-to-use-luckyblock"]);
            }
         }else{
-           $event->getPlayer()->sendMessage($this->cfg["not-allowed-to-use-luckyblock"]);
+           $event->getPlayer()->sendMessage($this->cfg["game-is-not-running"]);
         }
      }
   }
