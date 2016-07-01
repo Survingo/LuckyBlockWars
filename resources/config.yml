@@ -10,3 +10,8 @@ explosion-max: 3
 # Choose how many players are required
 # to start the game
 needed-players: 4
+
+# Popup will be send while waiting
+# for other players
+# You can also use colors
+wait-popup: "§6Waiting for players..."
