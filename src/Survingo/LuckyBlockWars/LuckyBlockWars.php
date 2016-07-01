@@ -101,28 +101,26 @@ class LuckyBlockWars extends PluginBase implements Listener{
  
  public function onSignChange(SignChangeEvent $event){
     if($event->getLine(0) == "[LBW]" or $event->getLine(0) == "[LuckyBlock]" or $event->getLine(0) == "/lbw join"){
-       $this->getConfig()->set("sign-x", $event->getBlock()->getX());
-       $this->getConfig()->save();
-       $this->getConfig()->set("sign-y", $event->getBlock()->getY());
-       $this->getConfig()->save();
-       $this->getConfig()->set("sign-z", $event->getBlock()->getZ());
-       $this->getConfig()->save();
-       $event->setLine(0, "§l[§6L§eB§cW§f]");
-       $event->setLine(1, "§aJoin");
+       if($event->getPlayer()->hasPermission("lbw.game.create-signs")){
+          $this->getConfig()->set("sign-x", $event->getBlock()->getX());
+          $this->getConfig()->save();
+          $this->getConfig()->set("sign-y", $event->getBlock()->getY());
+          $this->getConfig()->save();
+          $this->getConfig()->set("sign-z", $event->getBlock()->getZ());
+          $this->getConfig()->save();
+          $this->getConfig()->set("sign-world", $event->getPlayer()->getLevel()->getName());
+          $this->getConfig()->save();
+          $this->getConfig()->set("sign-mode", true);
+          $this->getConfig()->save;
+          $event->setLine(0, "§l[§6L§eB§cW§f]");
+          $event->setLine(1, "§aJoin");
+       }else{
+          $event->setLine(0, "No");
+          $event->setLine(1, "Permission");
+       }
     }
  }
- 
- public function arraySign(Vector3 $pos, $level){
-    return [
-       "coords" => [
-          "x" => $pos->x,
-          "y" => $pos->y,
-          "z" => $pos->z
-          ],
-       "level" => $level
-       ];
- }
- 
+
  public function addToGame(Player $gamer){
     if(count($this->players !== $this->cfg["needed-players"])){
        if(!in_array($gamer, $this->players)){
