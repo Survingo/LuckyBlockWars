@@ -19,6 +19,7 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\Listener;
+use pocketmine\Player;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
@@ -49,7 +50,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
   public function onBlockBreak(BlockBreakEvent $event){
      if($event->getBlock()->getId() == $this->cfg["luckyblock-id"]){
         if($this->running === true){
-           if($event->getPlayer()->hasPermission("lucky-block-wars.game.use")){
+           if($event->getPlayer()->hasPermission("lbw.game.use")){
               switch (mt_rand(1,3)){
                  case 1: $this->getRandom($this->unluckyBlockStuff($event->getBlock()));
                  break;
@@ -111,8 +112,14 @@ class LuckyBlockWars extends PluginBase implements Listener{
     }
  }
  
- public function getPlayersInGame(){
-    return $this->players;
+ public function addToGame(Player $gamer){
+    if(count($this->players !== $this->cfg["needed-players"])){
+       if(!in_array($gamer, $this->players)){
+          array_push($this->players, $gamer);
+          $this->getServer()->getPlayer($gamer)->teleport(new Position($this->cfg["lobby-x"], $this->cfg["lobby-y"], $this->cfg["lobby-z"], $this->cfg["lobby-world"]));
+          return true;
+       }
+    }
  }
  
  public function startGame(){
@@ -133,7 +140,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
        case "lbw":
           if($sender instanceof Player){
              if(!(isset($args[0]))){
-                if($sender->hasPermission("lucky-block-wars.command")){
+                if($sender->hasPermission("lbw.command")){
                    $this->getServer()->dispatchCommand($sender, "lbw help");
                 }
              }
@@ -145,7 +152,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
              case "list-cmds":
              case "list":
              case "?":
-                if($sender->hasPermission("lucky-block-wars.command.help")){
+                if($sender->hasPermission("lbw.command.help")){
                    $sender->sendMessage("----------");
                    $sender->sendMessage($this->prefix . "List of sub-commands");
                    $sender->sendMessage("----------");
@@ -159,11 +166,23 @@ class LuckyBlockWars extends PluginBase implements Listener{
              case "version":
              case "info":
              case "information":
-                if($sender->hasPermission("lucky-block-wars.command.help")){
+                if($sender->hasPermission("lbw.command.version")){
                    $sender->sendMessage($this->prefix . "Developed by §lSurvingo§r.\nCurrent version installed: §7" . $this->getDescription()->getVersion());
                    return true;
                 }
                 break;
+             case "join":
+             case "enter":
+             case "play":
+                if($sender instanceof Player){
+                   if($sender->hasPermission("lbw.command.join")){
+                      $this->addToGame($sender);
+                   }else{
+                      $sender->sendMessage("§cYou do not have the permission to do that!");
+                   }
+                }else{
+                   $sender->sendMessage("§cYou can not run that command via the console!");
+                }
              default:
                 $sender->sendMessage($this->prefix . "Unknown command. Type §7/lbw §fto get a list of commands.");
                 return true;
