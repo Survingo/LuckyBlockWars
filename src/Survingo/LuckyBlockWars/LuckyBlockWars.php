@@ -16,6 +16,7 @@ limitations under the License.
 namespace Survingo\LuckyBlockWars;
 
 use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\Listener;
 use pocketmine\math\Vector3;
@@ -38,6 +39,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
      $this->saveResource("config.yml");//$this->saveDefaultConfig();
      $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
      $this->cfg = $cfg->getAll();
+     $this->getServer()->getScheduler()->scheduleRepeatingTask(new StatusSignTask($this), 20 * 3);
   }
   
   public function onDisable(){
@@ -65,6 +67,19 @@ class LuckyBlockWars extends PluginBase implements Listener{
         }
      }
   }
+  
+ public function onSignChange(SignChangeEvent $event){
+    if($event->getLine(0) == "[LBW]" or $event->getLine(0) == "[LuckyBlock]" or $event->getLine(0) == "/lbw join"){
+       $this->getConfig()->set("sign-x", $event->getBlock()->getX());
+       $this->getConfig()->save();
+       $this->getConfig()->set("sign-y", $event->getBlock()->getY());
+       $this->getConfig()->save();
+       $this->getConfig()->set("sign-z", $event->getBlock()->getZ());
+       $this->getConfig()->save();
+       $event->setLine(0, "§l[§6L§eB§cW§f]");
+       $event->setLine(3, "§aJoin");
+    }
+ }
  
  public function getRandom(array $things){
     if(is_array($things)) return $things[array_rand($things, 1)];
