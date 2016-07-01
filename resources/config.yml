@@ -15,3 +15,9 @@ needed-players: 4
 # for other players
 # You can also use colors
 wait-popup: "§6Waiting for players..."
+
+# Place where the game runs
+join-world:
+join-x:
+join-y:
+join-z:
