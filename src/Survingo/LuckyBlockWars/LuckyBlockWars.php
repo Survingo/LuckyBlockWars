@@ -28,7 +28,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
    
   public $running = false;
   
-  public $prefix = ("[§6Lucky §eBlock §cWars] ");
+  public $prefix = ("[§6Lucky §eBlock §cWars§f] ");
   
   public $players = array();
    
@@ -132,6 +132,8 @@ class LuckyBlockWars extends PluginBase implements Listener{
                    return true;
                 }
                 break;
+             default:
+                $sender->sendMessage($this->prefix . "Unknown command. Type §7/lbw §fto get a list of commands.");
           }
     }
  }
