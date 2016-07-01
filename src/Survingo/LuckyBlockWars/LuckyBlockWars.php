@@ -33,10 +33,16 @@ class LuckyBlockWars extends PluginBase implements Listener{
   public $players = array();
    
   public function onEnable(){
-     $this->getServer()->getLogger()->info("[" . $this->getDescription()->getName() . "] Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
+     $this->getServer()->getLogger()->info($this->prefix . "Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
+     @mkdir($this->getDataFolder());
      $this->saveResource("config.yml");//$this->saveDefaultConfig();
      $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
      $this->cfg = $cfg->getAll();
+  }
+  
+  public function onDisable(){
+     $this->getServer()->getLogger()->info($this->prefix . "Disabling plugin...");
+     $this->
   }
   
   public function onBlockBreak(BlockBreakEvent $event){
@@ -51,7 +57,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
               break;
            }
         }else{
-           $event->getPlayer()->sendMessage($this->cfg["not_allowed"]);
+           $event->getPlayer()->sendMessage($this->cfg["not-allowed-to-use-luckyblock"]);
         }
      }
   }
