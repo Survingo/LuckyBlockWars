@@ -89,13 +89,9 @@ class LuckyBlockWars extends PluginBase implements Listener{
        //$test->test();
  );}
  
- public function onSignChange(SignChangeEvent $event){
-    //add to config
- }
- 
  public function onInteract(PlayerInteractEvent $event){
     if($event->getBlock()->getX() === $this->cfg["sign-x"] and $event->getBlock()->getY() === $this->cfg["sign-y"] and $event->getBlock()->getZ() === $this->cfg["sign-z"]){
-       //join
+       $this->addToGame($event->getPlayer());
     }
  }
  
@@ -133,8 +129,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
  
  public function startGame(){
     if(count($this->players == $this->cfg["needed-players"])){
-       $this->running = true;
-       foreach($players as $player){
+       foreach($this->getServer()->getPlayer($this->players) as $player){
           $player->sendMessage("[LuckyBlockWars] Starting game...");
           $this->getServer()->getScheduler()->scheduleRepeatingTask(new StartGameTask($plugin), 20)->getTaskId();
           $this->getServer()->getScheduler()->cancelTask($this->waitPopup);
