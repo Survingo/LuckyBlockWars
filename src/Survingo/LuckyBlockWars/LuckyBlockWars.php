@@ -21,7 +21,7 @@ use pocketmine\event\Listener;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use Survingo\LuckyBlockWars\tasks\PopupWaitTask;
+use Survingo\LuckyBlockWars\tasks\WaitPopupTask;
 use Survingo\LuckyBlockWars\tasks\StartGameTask;
 
 class LuckyBlockWars extends PluginBase implements Listener{
@@ -84,16 +84,20 @@ class LuckyBlockWars extends PluginBase implements Listener{
     }
  }
  
- public function startGame(array $players){
+ public function getPlayersInGame(){
+    return $this->players;
+ }
+ 
+ public function startGame(){
     if(count($this->players == $this->cfg["needed-players"])){
        $this->running = true;
        foreach($players as $player){
           $player->sendMessage("[LuckyBlockWars] Starting game...");
           $this->getServer()->getScheduler()->scheduleRepeatingTask(new StartGameTask($plugin), 20)->getTaskId();
-          $this->getServer()->getScheduler()->cancelTask($this->popupWait);
+          $this->getServer()->getScheduler()->cancelTask($this->waitPopup);
        }
     }else{
-      $this->popupWait = $this->getServer()->getScheduler()->scheduleRepeatingTask(new PopupWaitTask($plugin), 20)->getTaskId();
+      $this->waitPopup = $this->getServer()->getScheduler()->scheduleRepeatingTask(new WaitPopupTask($plugin), 20)->getTaskId();
     }
   }
  
