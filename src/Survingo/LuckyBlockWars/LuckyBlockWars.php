@@ -28,6 +28,8 @@ class LuckyBlockWars extends PluginBase implements Listener{
    
   public $running = false;
   
+  public $prefix = ("[§6Lucky §eBlock §cWars] ");
+  
   public $players = array();
    
   public function onEnable(){
@@ -60,7 +62,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
  
  public function unluckyBlockStuff($block){
     return array(
-       $boom = new \pocketmine\level\Explosion($block, mt_rand($this->cfg["explosion_min"], $this->cfg["explosion_max"]));
+       $boom = new \pocketmine\level\Explosion($block, mt_rand($this->cfg["min-explosion"], $this->cfg["max-explosion"]));
        $boom->explodeA();
  );}
  
@@ -100,5 +102,32 @@ class LuckyBlockWars extends PluginBase implements Listener{
       $this->waitPopup = $this->getServer()->getScheduler()->scheduleRepeatingTask(new WaitPopupTask($plugin), 20)->getTaskId();
     }
   }
+  
+ public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+    switch(strtolower($command->getName())){
+       case "lbw":
+          if($sender instanceof Player){
+             if(!(isset($args[0]))){
+                if($sender->hasPermission("lucky-block-wars.command")){
+                   $this->getServer()->dispatchCommand($sender, "lbw help");
+                }
+             }
+          }
+          $arg = array_shift($args);
+          switch($args){
+             case "help":
+                if($sender->hasPermission("lucky-block-wars.command.help")){
+                   $sender->sendMessage("----------");
+                   $sender->sendMessage($this->prefix . "Help");
+                   $sender->sendMessage("----------");
+                   return true;
+                }else{
+                   $sender->sendMessage("§cYou don't have the permission to run the help!");
+                   return true;
+                }
+                break;
+          }
+    }
+ }
  
 }
