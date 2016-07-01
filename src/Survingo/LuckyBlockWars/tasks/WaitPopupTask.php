@@ -5,7 +5,7 @@ namespace Survingo\LuckyBlockWars\tasks;
 use pocketmine\scheduler\PluginTask;
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
-class PopupWaitTask extends PluginTask{
+class WaitPopupTask extends PluginTask{
   
   private $plugin;
   
@@ -16,7 +16,7 @@ class PopupWaitTask extends PluginTask{
   
   public function onRun($currentTick){
     foreach($this->plugin->getPlayersInGame() as $player){
-      $this->plugin->getServer()->getPlayer($player)->sendPopup("§6Waiting for players...");
+      $this->plugin->getServer()->getPlayer($player)->sendPopup($this->plugin->cfg["wait-popup"]);
     }
   }
   
