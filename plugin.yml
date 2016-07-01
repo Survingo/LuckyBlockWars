@@ -4,3 +4,32 @@ version: Alpha
 author: Survingo
 api: [1.13.0,2.0.0]
 description: The MCPC mini-game Lucky Block Wars for your PocketMine server
+
+commands:
+ lbw:
+  permission: lbw.command
+  aliases: ["luckyblockwars", "lucky-block-wars"]
+  description: "All commands for Lucky Block Wars" 
+  usage: "/lbw [args]"
+  
+permissions:
+ lbw.game:
+  default: true
+  description: "In-game permissions"
+  children:
+   lbw.game.use:
+    default: true
+    description: "Allows using Lucky Blocks while the player is in-game"
+ lbw.command:
+  default: true
+  description: "Access key for commands"
+  children:
+   lbw.command.help:
+    default: true
+    description: "Allows using the help"
+   lbw.command.version:
+    default: true
+    description: "Allows using the version sub-command"
+   lbw.command.join:
+    default: true
+    description: "Allows joining a game"
