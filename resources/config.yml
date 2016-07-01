@@ -30,3 +30,9 @@ join-x:
 join-y:
 join-z:
 join-world:
+
+# Location of status sign
+sign-x:
+sign-y:
+sign-z:
+sign-world:
