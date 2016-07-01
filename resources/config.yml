@@ -4,8 +4,8 @@ luckyblock-id: 19
 
 # Choose how big should be
 # the unlucky explosion
-explosion-min: 1
-explosion-max: 3
+min-explosion: 1
+max-explosion: 3
 
 # Choose how many players are required
 # to start the game
@@ -16,8 +16,13 @@ needed-players: 4
 # You can also use colors
 wait-popup: "§6Waiting for players..."
 
-# Place where the game runs
-join-world:
+# Will be send to a player if he
+# have not the permission to
+# use a lucky block
+not-allowed-to-use-luckyblock: "§cYou are not allowed to use Lucky Blocks!"
+
+# Place where the game starts
 join-x:
 join-y:
 join-z:
+join-world:
