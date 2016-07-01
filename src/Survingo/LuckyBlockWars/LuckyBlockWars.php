@@ -122,18 +122,33 @@ class LuckyBlockWars extends PluginBase implements Listener{
           $arg = array_shift($args);
           switch($args){
              case "help":
+             case "list-commands":
+             case "list-cmds":
+             case "list":
+             case "?":
                 if($sender->hasPermission("lucky-block-wars.command.help")){
                    $sender->sendMessage("----------");
-                   $sender->sendMessage($this->prefix . "Help");
+                   $sender->sendMessage($this->prefix . "List of sub-commands");
                    $sender->sendMessage("----------");
+                   $sender->sendMessage("§2version: §fShows information about this plugin");
                    return true;
                 }else{
                    $sender->sendMessage("§cYou don't have the permission to run the help!");
                    return true;
                 }
                 break;
+             case "version":
+             case "info":
+             case "information":
+                if($sender->hasPermission("lucky-block-wars.command.help")){
+                   $sender->sendMessage($this->prefix . "Developed by §lSurvingo§r.\nCurrent version installed: §7" . $this->getDescription()->getVersion());
+                   return true;
+                }
+                break;
              default:
                 $sender->sendMessage($this->prefix . "Unknown command. Type §7/lbw §fto get a list of commands.");
+                return true;
+                break;
           }
     }
  }
