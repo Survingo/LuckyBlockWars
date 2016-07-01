@@ -32,7 +32,7 @@ class StartGameTask extends PluginTask{
   
   public function onRun($currentTick){
     $this->seconds -= 1;
-    foreach($this->plugin->players as $player){
+    foreach($this->plugin->getServer()->getPlayer($this->plugin->players) as $player){
       $player->sendPopup("§eLucky Block Wars will start in §6{$this->seconds} §e" . ($this->seconds <=1 ? "second" : "seconds"));
       if($this->seconds == 1){
         $player->teleport(new Vector3($this->plugin->cfg["join_x"], $this->plugin->cfg["join_y"], $this->plugin->cfg["join_z"]));
