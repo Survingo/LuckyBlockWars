@@ -1,3 +1,7 @@
+# Warning: Editing this configuration
+# can cause crashes by putting wrong
+# information at the wrong place
+
 # Choose your lucky block
 # default 19 (Sponge)
 luckyblock-id: 19
@@ -24,6 +28,13 @@ game-is-not-running: "§cYou can not break Lucky Blocks while you are not in a g
 # have not the permission to
 # use a lucky block
 not-allowed-to-use-luckyblock: "§cYou are not allowed to use Lucky Blocks!"
+
+# Location where the players will
+# stay while there are waiting
+lobby-x:
+lobby-y:
+lobby-z:
+lobby-world:
 
 # Place where the game starts
 join-x:
