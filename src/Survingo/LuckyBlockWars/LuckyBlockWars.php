@@ -68,19 +68,6 @@ class LuckyBlockWars extends PluginBase implements Listener{
         }
      }
   }
-  
- public function onSignChange(SignChangeEvent $event){
-    if($event->getLine(0) == "[LBW]" or $event->getLine(0) == "[LuckyBlock]" or $event->getLine(0) == "/lbw join"){
-       $this->getConfig()->set("sign-x", $event->getBlock()->getX());
-       $this->getConfig()->save();
-       $this->getConfig()->set("sign-y", $event->getBlock()->getY());
-       $this->getConfig()->save();
-       $this->getConfig()->set("sign-z", $event->getBlock()->getZ());
-       $this->getConfig()->save();
-       $event->setLine(0, "§l[§6L§eB§cW§f]");
-       $event->setLine(3, "§aJoin");
-    }
- }
  
  public function getRandom(array $things){
     if(is_array($things)) return $things[array_rand($things, 1)];
@@ -109,6 +96,19 @@ class LuckyBlockWars extends PluginBase implements Listener{
  public function onInteract(PlayerInteractEvent $event){
     if($event->getBlock()->getX() === $this->cfg["sign-x"] and $event->getBlock()->getY() === $this->cfg["sign-y"] and $event->getBlock()->getZ() === $this->cfg["sign-z"]){
        //join
+    }
+ }
+ 
+ public function onSignChange(SignChangeEvent $event){
+    if($event->getLine(0) == "[LBW]" or $event->getLine(0) == "[LuckyBlock]" or $event->getLine(0) == "/lbw join"){
+       $this->getConfig()->set("sign-x", $event->getBlock()->getX());
+       $this->getConfig()->save();
+       $this->getConfig()->set("sign-y", $event->getBlock()->getY());
+       $this->getConfig()->save();
+       $this->getConfig()->set("sign-z", $event->getBlock()->getZ());
+       $this->getConfig()->save();
+       $event->setLine(0, "§l[§6L§eB§cW§f]");
+       $event->setLine(3, "§aJoin");
     }
  }
  
