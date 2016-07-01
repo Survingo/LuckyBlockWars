@@ -24,12 +24,12 @@ class WaitPopupTask extends PluginTask{
   
   public function __construct(LuckyBlockWars $plugin){
     parent::__construct($plugin);
-    $this->plugin $plugin;
+    $this->plugin = $plugin;
   }
   
   public function onRun($currentTick){
-    foreach($this->plugin->getPlayersInGame() as $player){
-      $this->plugin->getServer()->getPlayer($player)->sendPopup($this->plugin->cfg["wait-popup"]);
+    foreach($this->plugin->getServer()->getPlayer($this->plugin->players) as $player){
+      $player->sendPopup($this->plugin->cfg["wait-popup"]);
     }
   }
   
