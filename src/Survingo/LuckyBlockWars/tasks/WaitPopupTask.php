@@ -19,7 +19,7 @@ use pocketmine\scheduler\PluginTask;
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
 class WaitPopupTask extends PluginTask{
-  
+  /** @var LuckyBlockWars */
   private $plugin;
   
   public function __construct(LuckyBlockWars $plugin){
