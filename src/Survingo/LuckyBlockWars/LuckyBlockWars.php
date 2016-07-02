@@ -26,6 +26,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use Survingo\LuckyBlockWars\tasks\WaitPopupTask;
 use Survingo\LuckyBlockWars\tasks\StartGameTask;
+use Survingo\LuckyBlockWars\tasks\StatusSignTask;
 
 class LuckyBlockWars extends PluginBase implements Listener{
    
