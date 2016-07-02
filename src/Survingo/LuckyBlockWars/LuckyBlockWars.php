@@ -44,6 +44,7 @@ class LuckyBlockWars extends PluginBase implements Listener{
      $this->saveResource("config.yml");//$this->saveDefaultConfig();
      $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
      $this->cfg = $cfg->getAll();
+     $this->getServer()->getPluginManager()->registerEvent(new EventManager($this), $this);
      $this->getServer()->getScheduler()->scheduleRepeatingTask(new StatusSignTask($this), 20 * 3);
   }
   
