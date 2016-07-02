@@ -21,7 +21,7 @@ use pocketmine\tile\Sign;
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
 class StatusSignTask extends PluginTask{
-  
+  /** @var LuckyBlockWars */
   private $plugin;
   
   public function __construct(LuckyBlockWars $plugin){
