@@ -21,7 +21,7 @@ use pocketmine\scheduler\ServerScheduler;
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
 class StartGameTask extends PluginTask{
-  
+  /** @var LuckyBlockWars */
   private $plugin;
   
   public $seconds = 20;
