@@ -18,6 +18,7 @@ namespace Survingo\LuckyBlockWars;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\math\Vector3;
@@ -93,7 +94,28 @@ class LuckyBlockWars extends PluginBase implements Listener{
  
  public function onInteract(PlayerInteractEvent $event){
     if($event->getBlock()->getX() === $this->cfg["sign-x"] and $event->getBlock()->getY() === $this->cfg["sign-y"] and $event->getBlock()->getZ() === $this->cfg["sign-z"]){
-       $this->addToGame($event->getPlayer());
+       if($this->running == false){
+          $this->addToGame($event->getPlayer()->getName());
+       }else{
+          $event->getPlayer()->sendMessage($this->cfg["game-is-running"]);
+       }
+    }
+ }
+ 
+ public function onDeath(PlayerDeathEvent $event){
+    if($this->running == true){
+       if(in_array($event->getEntity()->getName(), $this->players)){
+          unset($this->players{array_search($event->getEntity()->getName(), $this->players)});
+          $event->setDeathMessage($this->cfg["death-message"]);
+          $event->getEntity()->teleport($this->getServer()->getLevelByName($this->cfg["respawn-level"])->getSafeSpawn());
+       }
+       if(count($this->players == 1)){
+          $this->getServer()->getPlayer($this->players)->teleport($this->getServer()->getLevelByName($this->cfg["respawn-level"])->getSafeSpawn());
+          $this->getServer()->broadcastMessage(str_replace(["{name}", "health"], [$this->players, $this->getServer()->getPlayer($this->players)->getHealth()], $this->cfg["won-broadcast"]));
+          $this->getServer()->getPlayer(this->players)->setHealth(20);
+          unset($this->players{array_search($this->players, $this->players)});
+          $this->running = false;
+       }
     }
  }
  
@@ -119,11 +141,11 @@ class LuckyBlockWars extends PluginBase implements Listener{
     }
  }
 
- public function addToGame(Player $gamer){
+ public function addToGame($name){
     if(count($this->players !== $this->cfg["needed-players"])){
-       if(!in_array($gamer, $this->players)){
-          array_push($this->players, $gamer);
-          $this->getServer()->getPlayer($gamer)->teleport(new Position($this->cfg["lobby-x"], $this->cfg["lobby-y"], $this->cfg["lobby-z"], $this->cfg["lobby-world"]));
+       if(!in_array($name, $this->players)){
+          array_push($this->players, $name);
+          $this->getServer()->getPlayer($name)->teleport(new Position($this->cfg["lobby-x"], $this->cfg["lobby-y"], $this->cfg["lobby-z"], $this->cfg["lobby-world"]));
           return true;
        }
     }
