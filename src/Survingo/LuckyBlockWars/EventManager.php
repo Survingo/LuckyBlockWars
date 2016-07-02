@@ -30,10 +30,10 @@ class EventManager implements Listener{
   }
   
   public function onBlockBreak(BlockBreakEvent $event){
-     if($event->getBlock()->getId() == $this->cfg["luckyblock-id"]){
-        if($this->running === true){
+     if($event->getBlock()->getId() == $this->plugin->cfg["luckyblock-id"]){
+        if($this->plugin->running === true){
            if($event->getPlayer()->hasPermission("lbw.game.use")){
-              switch (mt_rand(1,3)){
+              switch(mt_rand(1,3)){
                  case 1: $this->getRandom($this->unluckyBlockStuff($event->getBlock()));
                  break;
                  case 2: $this->getRandom($this->normalBlockStuff($event->getBlock()));
@@ -43,10 +43,10 @@ class EventManager implements Listener{
               }
            }else{
               $event->setCancelled(true);
-              $event->getPlayer()->sendMessage($this->cfg["not-allowed-to-use-luckyblock"]);
+              $event->getPlayer()->sendMessage($this->plugin->cfg["not-allowed-to-use-luckyblock"]);
            }
         }else{
-           $event->getPlayer()->sendMessage($this->cfg["game-is-not-running"]);
+           $event->getPlayer()->sendMessage($this->plugin->cfg["game-is-not-running"]);
         }
      }
   }
@@ -54,16 +54,16 @@ class EventManager implements Listener{
   public function onSignChange(SignChangeEvent $event){
     if($event->getLine(0) == "[LBW]" or $event->getLine(0) == "[LuckyBlock]" or $event->getLine(0) == "/lbw join"){
        if($event->getPlayer()->hasPermission("lbw.game.create-signs")){
-          $this->getConfig()->set("sign-x", $event->getBlock()->getX());
-          $this->getConfig()->save();
-          $this->getConfig()->set("sign-y", $event->getBlock()->getY());
-          $this->getConfig()->save();
-          $this->getConfig()->set("sign-z", $event->getBlock()->getZ());
-          $this->getConfig()->save();
-          $this->getConfig()->set("sign-world", $event->getPlayer()->getLevel()->getName());
-          $this->getConfig()->save();
-          $this->getConfig()->set("sign-mode", true);
-          $this->getConfig()->save;
+          $this->plugin->getConfig()->set("sign-x", $event->getBlock()->getX());
+          $this->plugin->getConfig()->save();
+          $this->plugin->getConfig()->set("sign-y", $event->getBlock()->getY());
+          $this->plugin->getConfig()->save();
+          $this->plugin->getConfig()->set("sign-z", $event->getBlock()->getZ());
+          $this->plugin->getConfig()->save();
+          $this->plugin->getConfig()->set("sign-world", $event->getPlayer()->getLevel()->getName());
+          $this->plugin->getConfig()->save();
+          $this->plugin->getConfig()->set("sign-mode", true);
+          $this->plugin->getConfig()->save;
           $event->setLine(0, "§l[§6L§eB§cW§f]");
           $event->setLine(1, "§aJoin");
        }else{
@@ -74,28 +74,28 @@ class EventManager implements Listener{
  }
  
  public function onDeath(PlayerDeathEvent $event){
-    if($this->running == true){
-       if(in_array($event->getEntity()->getName(), $this->players)){
-          unset($this->players{array_search($event->getEntity()->getName(), $this->players)});
-          $event->setDeathMessage($this->cfg["death-message"]);
-          $event->getEntity()->teleport($this->getServer()->getLevelByName($this->cfg["respawn-level"])->getSafeSpawn());
+    if($this->plugin->running == true){
+       if(in_array($event->getEntity()->getName(), $this->plugin->players)){
+          unset($this->plugin->players{array_search($event->getEntity()->getName(), $this->plugin->players)});
+          $event->setDeathMessage($this->plugin->cfg["death-message"]);
+          $event->getEntity()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
        }
-       if(count($this->players == 1)){
-          $this->getServer()->getPlayer($this->players)->teleport($this->getServer()->getLevelByName($this->cfg["respawn-level"])->getSafeSpawn());
-          $this->getServer()->broadcastMessage(str_replace(["{name}", "health"], [$this->players, $this->getServer()->getPlayer($this->players)->getHealth()], $this->cfg["won-broadcast"]));
-          $this->getServer()->getPlayer(this->players)->setHealth(20);
-          unset($this->players{array_search($this->players, $this->players)});
-          $this->running = false;
+       if(count($this->plugin->players == 1)){
+          $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
+          $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "health"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
+          $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
+          unset($this->plugin->players{array_search($this->plugin->players, $this->plugin->players)});
+          $this->plugin->running = false;
        }
     }
  }
  
  public function onInteract(PlayerInteractEvent $event){
-    if($event->getBlock()->getX() === $this->cfg["sign-x"] and $event->getBlock()->getY() === $this->cfg["sign-y"] and $event->getBlock()->getZ() === $this->cfg["sign-z"]){
-       if($this->running == false){
+    if($event->getBlock()->getX() === $this->plugin->cfg["sign-x"] and $event->getBlock()->getY() === $this->plugin->cfg["sign-y"] and $event->getBlock()->getZ() === $this->plugin->cfg["sign-z"]){
+       if($this->plugin->running == false){
           $this->addToGame($event->getPlayer()->getName());
        }else{
-          $event->getPlayer()->sendMessage($this->cfg["game-is-running"]);
+          $event->getPlayer()->sendMessage($this->plugin->cfg["game-is-running"]);
        }
     }
  }
