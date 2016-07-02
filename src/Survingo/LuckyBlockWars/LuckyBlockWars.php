@@ -15,11 +15,6 @@ limitations under the License.
 
 namespace Survingo\LuckyBlockWars;
 
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\SignChangeEvent;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
@@ -28,7 +23,7 @@ use Survingo\LuckyBlockWars\tasks\WaitPopupTask;
 use Survingo\LuckyBlockWars\tasks\StartGameTask;
 use Survingo\LuckyBlockWars\tasks\StatusSignTask;
 
-class LuckyBlockWars extends PluginBase implements Listener{
+class LuckyBlockWars extends PluginBase{
    
   public $running = false;
   
