@@ -17,9 +17,9 @@ namespace Survingo\LuckyBlockWars;
 
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\SignChangeEvent;
+use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\Listener;
 
 class EventManager implements Listener{
   /** @var LuckyBlockWars */
