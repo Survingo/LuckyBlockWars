@@ -33,6 +33,8 @@ class LuckyBlockWars extends PluginBase implements Listener{
   public $prefix = ("[§6Lucky §eBlock §cWars§f] ");
   
   public $players = array();
+  
+  public $cfg;
    
   public function onEnable(){
      $this->getServer()->getLogger()->info($this->prefix . "Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
