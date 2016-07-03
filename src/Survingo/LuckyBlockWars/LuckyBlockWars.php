@@ -31,15 +31,16 @@ class LuckyBlockWars extends PluginBase{
   
   public $players = array();
   
-  public $cfg;
+  public $msg;
    
   public function onEnable(){
      $this->getServer()->getLogger()->info($this->prefix . "Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
      @mkdir($this->getDataFolder());
-     $this->saveResource("config.yml");//$this->saveDefaultConfig();
-     $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-     $this->cfg = $cfg->getAll();
-     $this->getServer()->getPluginManager()->registerEvent(new EventManager($this), $this);
+     $this->saveDefaultConfig();
+     $this->saveResource("messages.yml");
+     $messages = new Config($this->getDataFolder() . "messages.yml", Config::YAML);
+     $this->msg = $messages->getAll();
+     $this->getServer()->getPluginManager()->registerEvents(new EventManager($this), $this);
      $this->getServer()->getScheduler()->scheduleRepeatingTask(new StatusSignTask($this), 20 * 3);
   }
   
@@ -53,7 +54,7 @@ class LuckyBlockWars extends PluginBase{
  
  public function unluckyBlockStuff($block){
     return array(
-       $boom = new \pocketmine\level\Explosion($block, mt_rand($this->cfg["min-explosion"], $this->cfg["max-explosion"]));
+       $boom = new \pocketmine\level\Explosion($block, mt_rand($this->getConfig()->get("min-explosion"), $this->getConfig("max-explosion")));
        $boom->explodeA();
  );}
  
@@ -68,17 +69,17 @@ class LuckyBlockWars extends PluginBase{
  );}
 
  public function addToGame($name){
-    if(count($this->players !== $this->cfg["needed-players"])){
+    if(count($this->players !== $this->getConfig()->get("needed-players"))){
        if(!in_array($name, $this->players)){
           array_push($this->players, $name);
-          $this->getServer()->getPlayer($name)->teleport(new Position($this->cfg["lobby-x"], $this->cfg["lobby-y"], $this->cfg["lobby-z"], $this->cfg["lobby-world"]));
+          $this->getServer()->getPlayer($name)->teleport(new Position($this->getConfig()->get("lobby-x"), $this->getConfig()->get("lobby-y"), $this->getConfig()->get("lobby-z"), $this->getConfig()->get("lobby-world")));
           return true;
        }
     }
  }
  
  public function startGame(){
-    if(count($this->players == $this->cfg["needed-players"])){
+    if(count($this->players == $this->getConfig()->get("needed-players"))){
        foreach($this->getServer()->getPlayer($this->players) as $player){
           $player->sendMessage("[LuckyBlockWars] Starting game...");
           $this->getServer()->getScheduler()->scheduleRepeatingTask(new StartGameTask($plugin), 20)->getTaskId();
