@@ -20,6 +20,7 @@ use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 
 class EventManager implements Listener{
   /** @var LuckyBlockWars */
@@ -82,7 +83,7 @@ class EventManager implements Listener{
        }
        if(count($this->plugin->players == 1)){
           $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
-          $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "health"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
+          $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
           $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
           unset($this->plugin->players{array_search($this->plugin->players, $this->plugin->players)});
           $this->plugin->running = false;
@@ -96,6 +97,23 @@ class EventManager implements Listener{
           $this->addToGame($event->getPlayer()->getName());
        }else{
           $event->getPlayer()->sendMessage($this->plugin->cfg["game-is-running"]);
+       }
+    }
+ }
+ 
+ public function onQuit(PlayerQuitEvent $event){
+    if($this->plugin->running == true){
+       if(in_array($event->getPlayer()->getName(), $this->plugin->players)){
+          unset($this->plugin->players{array_search($event->getPlayer()->getName(), $this->plugin->players)});
+          $event->setQuitMessage($this->plugin->cfg["quit-message"]);
+          $event->getPlayer()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
+       }
+       if(count($this->plugin->players) == 1){
+          $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
+          $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
+          $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
+          unset($this->plugin->players{array_search($this->plugin->players, $this->plugin->players)});
+          $this->plugin->running = false;
        }
     }
  }
