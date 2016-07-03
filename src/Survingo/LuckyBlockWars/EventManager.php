@@ -106,7 +106,6 @@ class EventManager implements Listener{
        if(in_array($event->getPlayer()->getName(), $this->plugin->players)){
           unset($this->plugin->players{array_search($event->getPlayer()->getName(), $this->plugin->players)});
           $event->setQuitMessage($this->plugin->prefix . str_replace("{name}", $event->getPlayer()->getName(), $this->plugin->msg["quit-message"]));
-          $event->getPlayer()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->getConfig("respawn-level"))->getSafeSpawn());
        }
        if(count($this->plugin->players) == 1){
           $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
