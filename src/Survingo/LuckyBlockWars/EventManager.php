@@ -32,10 +32,11 @@ class EventManager implements Listener{
   
   public function onBlockBreak(BlockBreakEvent $event){
      if($event->getBlock()->getId() == $this->plugin->getConfig("luckyblock-id")){
-        if($this->plugin->running === true){
+        if($this->plugin->running == true){
            if($event->getPlayer()->hasPermission("lbw.game.use")){
               switch(mt_rand(1,3)){
-                 case 1: $this->getRandom($this->unluckyBlockStuff($event->getBlock()));
+                 case 1: (new \pocketmine\level\Explosion($event->getBlock(), mt_rand($this->getConfig()->get("min-explosion"), $this->getConfig("max-explosion"))))->explodeA();
+                 // Unlucky
                  break;
                  case 2: $this->getRandom($this->normalBlockStuff($event->getBlock()));
                  break;
