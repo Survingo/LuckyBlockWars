@@ -15,6 +15,9 @@ max-explosion: 3
 # to start the game
 needed-players: 4
 
+# Players who died or won the game will
+# be teleported there
+respawn-level: world
 
 # Do NOT edit the following part if
 # you do not know what it mean
