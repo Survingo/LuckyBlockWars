@@ -31,7 +31,7 @@ class EventManager implements Listener{
   }
   
   public function onBlockBreak(BlockBreakEvent $event){
-     if($event->getBlock()->getId() == $this->plugin->cfg["luckyblock-id"]){
+     if($event->getBlock()->getId() == $this->plugin->getConfig("luckyblock-id")){
         if($this->plugin->running === true){
            if($event->getPlayer()->hasPermission("lbw.game.use")){
               switch(mt_rand(1,3)){
@@ -44,10 +44,10 @@ class EventManager implements Listener{
               }
            }else{
               $event->setCancelled(true);
-              $event->getPlayer()->sendMessage($this->plugin->cfg["not-allowed-to-use-luckyblock"]);
+              $event->getPlayer()->sendMessage($this->plugin->msg["not-allowed-to-use-luckyblock"]);
            }
         }else{
-           $event->getPlayer()->sendMessage($this->plugin->cfg["game-is-not-running"]);
+           $event->getPlayer()->sendMessage($this->plugin->msg["game-is-not-running"]);
         }
      }
   }
@@ -78,12 +78,12 @@ class EventManager implements Listener{
     if($this->plugin->running == true){
        if(in_array($event->getEntity()->getName(), $this->plugin->players)){
           unset($this->plugin->players{array_search($event->getEntity()->getName(), $this->plugin->players)});
-          $event->setDeathMessage($this->plugin->cfg["death-message"]);
-          $event->getEntity()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
+          $event->setDeathMessage($this->plugin->prefix . str_replace("{name}", $event->getEntity()->getName(), $this->plugin->msg["death-message"]));
+          $event->getEntity()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->getConfig()->get("respawn-level"))->getSafeSpawn());
        }
        if(count($this->plugin->players == 1)){
           $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
-          $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
+          $this->plugin->getServer()->broadcastMessage($this->plugin->prefix . str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->getConfig()->get("won-broadcast")));
           $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
           $this->plugin->players = array();
           $this->plugin->running = false;
