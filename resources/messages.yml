@@ -1,1 +1,6 @@
 # Messages file for Lucky Block Wars
+
+# Popup will be send while waiting
+# for other players
+# You can also use colors using §
+wait-popup: "§6Waiting for players..."
