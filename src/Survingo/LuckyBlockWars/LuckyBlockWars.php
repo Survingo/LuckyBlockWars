@@ -51,22 +51,6 @@ class LuckyBlockWars extends PluginBase{
  public function getRandom(array $things){
     if(is_array($things)) return $things[array_rand($things, 1)];
  }
- 
- public function unluckyBlockStuff($block){
-    return array(
-       $boom = new \pocketmine\level\Explosion($block, mt_rand($this->getConfig()->get("min-explosion"), $this->getConfig("max-explosion")));
-       $boom->explodeA();
- );}
- 
- public function normalBlockStuff($block){
-    return array(
-       //$test->test();
- );}
- 
- public function luckyBlockStuff($block){
-    return array(
-       //$test->test();
- );}
 
  public function addToGame($name){
     if(count($this->players !== $this->getConfig()->get("needed-players"))){
