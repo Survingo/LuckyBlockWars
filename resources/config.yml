@@ -15,16 +15,8 @@ max-explosion: 3
 # to start the game
 needed-players: 4
 
-# Message will be send if the game
-# is not running
-game-is-not-running: "§cYou can not break Lucky Blocks while you are not in a game!"
 
-# Will be send to a player if he
-# have not the permission to
-# use a lucky block
-not-allowed-to-use-luckyblock: "§cYou are not allowed to use Lucky Blocks!"
-
-# Do not edit the following part if
+# Do NOT edit the following part if
 # you do not know what it mean
 
 # Location where the players will
