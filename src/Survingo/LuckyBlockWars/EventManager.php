@@ -85,7 +85,7 @@ class EventManager implements Listener{
           $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
           $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
           $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
-          unset($this->plugin->players{array_search($this->plugin->players, $this->plugin->players)});
+          $this->plugin->players = array();
           $this->plugin->running = false;
        }
     }
@@ -112,7 +112,7 @@ class EventManager implements Listener{
           $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
           $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
           $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
-          unset($this->plugin->players{array_search($this->plugin->players, $this->plugin->players)});
+          $this->plugin->players = array();
           $this->plugin->running = false;
        }
     }
