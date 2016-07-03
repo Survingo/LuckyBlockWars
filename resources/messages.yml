@@ -20,7 +20,11 @@ not-allowed-to-use-luckyblock: "§cYou are not allowed to use Lucky Blocks!"
 # {name} is the name of the dead player
 death-message: "{name} died! He's no longer in Lucky Block Wars!"
 
-quit-message:
+# This message will be shown if
+# a player leaves the server while
+# he is in game
+# {name} will be replaced with his name
+quit-message: "{name} left the game!"
 
 # This message will be broadcasted
 # if someone has won Lucky Block Wars
