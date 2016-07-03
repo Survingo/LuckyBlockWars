@@ -83,7 +83,7 @@ class EventManager implements Listener{
        }
        if(count($this->plugin->players == 1)){
           $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
-          $this->plugin->getServer()->broadcastMessage($this->plugin->prefix . str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->getConfig()->get("won-broadcast")));
+          $this->plugin->getServer()->broadcastMessage($this->plugin->prefix . str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->msg["won-broadcast"]));
           $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
           $this->plugin->players = array();
           $this->plugin->running = false;
@@ -105,8 +105,8 @@ class EventManager implements Listener{
     if($this->plugin->running == true){
        if(in_array($event->getPlayer()->getName(), $this->plugin->players)){
           unset($this->plugin->players{array_search($event->getPlayer()->getName(), $this->plugin->players)});
-          $event->setQuitMessage($this->plugin->cfg["quit-message"]);
-          $event->getPlayer()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
+          $event->setQuitMessage($this->plugin->prefix . str_replace("{name}", $event->getPlayer()->getName(), $this->plugin->msg["quit-message"]));
+          $event->getPlayer()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->getConfig("respawn-level"))->getSafeSpawn());
        }
        if(count($this->plugin->players) == 1){
           $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
