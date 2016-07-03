@@ -14,3 +14,16 @@ game-is-not-running: "§cYou can not break Lucky Blocks while you are not in a g
 # have not the permission to
 # use a lucky block
 not-allowed-to-use-luckyblock: "§cYou are not allowed to use Lucky Blocks!"
+
+# Will be shown if a player dies
+# while he is in game
+# {name} is the name of the dead player
+death-message: "{name} died! He's no longer in Lucky Block Wars!"
+
+quit-message:
+
+# This message will be broadcasted
+# if someone has won Lucky Block Wars
+# {name} will be raplaced with the winner's name
+# {health} will be replaced with the winner's health
+won-broadcast: "{name} won Lucky Block Wars with {health} health! Join now a game!"
