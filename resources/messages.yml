@@ -4,3 +4,8 @@
 # for other players
 # You can also use colors using §
 wait-popup: "§6Waiting for players..."
+
+# Message will be send if the game
+# is not running and you're trying to break
+# a Lucky Block
+game-is-not-running: "§cYou can not break Lucky Blocks while you are not in a game!"
