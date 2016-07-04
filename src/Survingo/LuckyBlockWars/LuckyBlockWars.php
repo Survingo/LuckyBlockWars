@@ -35,12 +35,13 @@ class LuckyBlockWars extends PluginBase{
    
   public function onEnable(){
      $this->getServer()->getLogger()->info($this->prefix . "Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
+     $this->getServer()->getPluginManager()->registerEvents(new EventManager($this), $this);
      @mkdir($this->getDataFolder());
      $this->saveDefaultConfig();
      $this->saveResource("messages.yml");
-     $messages = new Config($this->getDataFolder() . "messages.yml", Config::YAML);
-     $this->msg = $messages->getAll();
-     $this->getServer()->getPluginManager()->registerEvents(new EventManager($this), $this);
+     $this->msg = (new Config($this->getDataFolder() . "messages.yml", Config::YAML))->getAll();
+     $this->saveResource("pos.yml");
+     $this->coords = (new Config($this->getDataFolder() . "pos.yml", Config::YAML))->getAll();
      $this->getServer()->getScheduler()->scheduleRepeatingTask(new StatusSignTask($this), 20 * 3);
   }
   
@@ -56,7 +57,7 @@ class LuckyBlockWars extends PluginBase{
     if(count($this->players !== $this->getConfig()->get("needed-players"))){
        if(!in_array($name, $this->players)){
           array_push($this->players, $name);
-          $this->getServer()->getPlayer($name)->teleport(new Position($this->getConfig()->get("lobby-x"), $this->getConfig()->get("lobby-y"), $this->getConfig()->get("lobby-z"), $this->getConfig()->get("lobby-world")));
+          $this->getServer()->getPlayer($name)->teleport(new Position($this->coords["lobby-x"], $this->coords["lobby-y"], $this->coords["lobby-z"], $this->coords["lobby-world"]));
           return true;
        }
     }
@@ -66,11 +67,11 @@ class LuckyBlockWars extends PluginBase{
     if(count($this->players == $this->getConfig()->get("needed-players"))){
        foreach($this->getServer()->getPlayer($this->players) as $player){
           $player->sendMessage("[LuckyBlockWars] Starting game...");
-          $this->getServer()->getScheduler()->scheduleRepeatingTask(new StartGameTask($plugin), 20)->getTaskId();
+          $this->getServer()->getScheduler()->scheduleRepeatingTask(new StartGameTask($this), 20)->getTaskId();
           $this->getServer()->getScheduler()->cancelTask($this->waitPopup);
        }
     }else{
-      $this->waitPopup = $this->getServer()->getScheduler()->scheduleRepeatingTask(new WaitPopupTask($plugin), 20)->getTaskId();
+      $this->waitPopup = $this->getServer()->getScheduler()->scheduleRepeatingTask(new WaitPopupTask($this), 20)->getTaskId();
     }
   }
   
