@@ -18,26 +18,3 @@ needed-players: 4
 # Players who died or won the game will
 # be teleported there
 respawn-level: world
-
-# Do NOT edit the following part if
-# you do not know what it mean
-
-# Location where the players will
-# stay while there are waiting
-lobby-x:
-lobby-y:
-lobby-z:
-lobby-world:
-
-# Place where the game starts
-join-x:
-join-y:
-join-z:
-join-world:
-
-# Location of status sign
-sign-x:
-sign-y:
-sign-z:
-sign-world:
-sign-mode: false
