@@ -2,10 +2,13 @@
 
 namespace Survingo\LuckyBlocks\LuckyBlock;
 
+use Survingo\LuckyBlockWars\LuckyBlockWars;
+
 class LuckyBlocks{
   
-  public function __construct($plugin, $block){
-    $this->plugin = $plugin;
+  private $block;
+  
+  public function __construct(LuckyBlockWars $plugin, $block){
     $this->block = $block;
   }
   
