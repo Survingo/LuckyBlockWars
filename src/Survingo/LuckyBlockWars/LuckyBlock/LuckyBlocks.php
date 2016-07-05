@@ -3,6 +3,7 @@
 namespace Survingo\LuckyBlocks\LuckyBlock;
 
 use pocketmine\Player;
+use pocketmine\item\Item;
 
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
@@ -22,7 +23,8 @@ class LuckyBlocks{
     switch(mt_rand(1,2)){
       case 1: $player->getLevel()->dropItem($this->block, Item::get(Item::DIAMOND,0,1,"{display:{Name:"§b§lLucky Diamond"}}"));
       break;
-      case 2:
+      case 2: $player->getLevel()->dropItem($this->block, Item::get(Item::BOW,0,1,"{display:{Name:"§6§lLucky Bow"},ench:[{id:22s,lvl:1s}]}"));
+      $player->getLevel()->dropItem($this->block, Item::get(Item::ARROW));
       break;
     }
   }
