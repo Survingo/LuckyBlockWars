@@ -3,7 +3,6 @@
 namespace Survingo\LuckyBlocks\LuckyBlock;
 
 use pocketmine\Player;
-use pocketmine\math\Vector3;
 
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
@@ -21,7 +20,7 @@ class LuckyBlocks{
   
   public function run(){
     switch(mt_rand(1,2)){
-      case 1: $player->getLevel()->dropItem(new Vector3($this->block->getX(), $this->block->getY(), $this->block->getZ()), Item::get(Item::DIAMOND,0,1,"{display:{Name:"§b§lLucky Diamond"}}"));
+      case 1: $player->getLevel()->dropItem($this->block, Item::get(Item::DIAMOND,0,1,"{display:{Name:"§b§lLucky Diamond"}}"));
       break;
       case 2:
       break;
