@@ -5,6 +5,10 @@
 # for other players
 wait-popup: "§6Waiting for players..."
 
+# Will be send to all players
+# while their are in a game
+status-popup: "§2Players left: §l{players}"
+
 # Message will be send if the game
 # is not running and you're trying to break
 # a Lucky Block
