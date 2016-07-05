@@ -29,7 +29,7 @@ class WaitPopupTask extends PluginTask{
   
   public function onRun($currentTick){
     foreach($this->plugin->getServer()->getPlayer($this->plugin->players) as $player){
-      $player->sendPopup($this->plugin->cfg["wait-popup"]);
+      $player->sendPopup($this->plugin->msg["wait-popup"]);
     }
   }
   
