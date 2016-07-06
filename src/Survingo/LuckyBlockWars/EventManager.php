@@ -43,9 +43,9 @@ class EventManager implements Listener{
         if($this->plugin->running == true){
            if($event->getPlayer()->hasPermission("lbw.game.use")){
               switch(mt_rand(1,2)){
-                 case 1: new LuckyBlocks($this->plugin, $event->getBlock(), $event->getPlayer());
+                 case 1: (new LuckyBlocks($this->plugin, $event->getBlock(), $event->getPlayer()))->run();
                  break;
-                 case 2: new UnluckyBlock($this->plugin, $event->getBlock(), $event->getPlayer());
+                 case 2: (new UnluckyBlock($this->plugin, $event->getBlock(), $event->getPlayer()))->run();
                  break;
               }
            }else{
