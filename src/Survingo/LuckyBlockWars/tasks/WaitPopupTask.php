@@ -1,6 +1,12 @@
 <?php
 
 /*
+ _               _          ____  _            _   __        __             
+| |   _   _  ___| | ___   _| __ )| | ___   ___| | _\ \      / /_ _ _ __ ___ 
+| |  | | | |/ __| |/ / | | |  _ \| |/ _ \ / __| |/ /\ \ /\ / / _` | '__/ __|
+| |__| |_| | (__|   <| |_| | |_) | | (_) | (__|   <  \ V  V / (_| | |  \__ \
+|_____\__,_|\___|_|\_\\__, |____/|_|\___/ \___|_|\_\  \_/\_/ \__,_|_|  |___/
+                      |___/
    Copyright 2016 Survingo
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
