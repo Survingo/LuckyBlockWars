@@ -27,6 +27,8 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use Survingo\LuckyBlockWars\game\LuckyBlocks;
+use Survingo\LuckyBlockWars\game\UnluckyBlocks;
 
 class EventManager implements Listener{
   /** @var LuckyBlockWars */
@@ -40,13 +42,10 @@ class EventManager implements Listener{
      if($event->getBlock()->getId() == $this->plugin->getConfig("luckyblock-id")){
         if($this->plugin->running == true){
            if($event->getPlayer()->hasPermission("lbw.game.use")){
-              switch(mt_rand(1,3)){
-                 case 1: (new \pocketmine\level\Explosion($event->getBlock(), mt_rand($this->getConfig()->get("min-explosion"), $this->getConfig("max-explosion"))))->explodeA();
-                 // Unlucky
+              switch(mt_rand(1,2)){
+                 case 1: new LuckyBlocks($this->plugin, $event->getBlock(), $event->getPlayer());
                  break;
-                 case 2: $this->getRandom($this->normalBlockStuff($event->getBlock()));
-                 break;
-                 case 3: $this->getRandom($this->luckyBlockStuff($event->getBlock()));
+                 case 2: new UnluckyBlock($this->plugin, $event->getBlock(), $event->getPlayer());
                  break;
               }
            }else{
