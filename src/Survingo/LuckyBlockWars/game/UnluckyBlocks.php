@@ -1,6 +1,6 @@
 <?php
 
-namespace Survingo\LuckyBlocks\LuckyBlock;
+namespace Survingo\LuckyBlocks\game;
 
 use pocketmine\Player;
 
