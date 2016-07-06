@@ -21,9 +21,9 @@ limitations under the License.
 
 namespace Survingo\LuckyBlocks\game;
 
+use pocketmine\block\Block;
 use pocketmine\Player;
 use pocketmine\item\Item;
-
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
 class LuckyBlocks{
@@ -34,7 +34,7 @@ class LuckyBlocks{
   
   private $player;
   
-  public function __construct(LuckyBlockWars $plugin, $block, Player $player){
+  public function __construct(LuckyBlockWars $plugin, Block $block, Player $player){
     $this->plugin = $plugin;
     $this->block = $block;
     $this->player = $player;
