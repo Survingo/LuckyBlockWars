@@ -33,7 +33,7 @@ class LuckyBlockWars extends PluginBase{
    
   public $running = false;
   
-  public $prefix = ("[§6Lucky §eBlock §cWars§f] ");
+  public $prefix = ("[§6Lucky§eBlock§cWars§f] ");
   
   public $players = array();
   
