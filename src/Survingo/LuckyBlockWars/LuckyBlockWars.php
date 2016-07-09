@@ -37,17 +37,25 @@ class LuckyBlockWars extends PluginBase{
   
   public $players = array();
   
+  public $messages;
+  
   public $msg;
+  
+  public $coordinates;
+  
+  public $coords;
    
   public function onEnable(){
      $this->getServer()->getLogger()->info($this->prefix . "Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
      $this->getServer()->getPluginManager()->registerEvents(new EventManager($this), $this);
-     @mkdir($this->getDataFolder());
-     $this->saveDefaultConfig();
-     $this->saveResource("messages.yml");
-     $this->msg = (new Config($this->getDataFolder() . "messages.yml", Config::YAML))->getAll();
-     $this->saveResource("pos.yml");
-     $this->coords = (new Config($this->getDataFolder() . "pos.yml", Config::YAML))->getAll();
+      @mkdir($this->getDataFolder());
+       $this->saveDefaultConfig();
+       $this->saveResource("messages.yml");
+        $this->messages = new Config($this->getDataFolder() . "messages.yml", Config::YAML);
+        $this->msg = $this->messages->getAll();
+       $this->saveResource("pos.yml");
+        $this->coordinates = new Config($this->getDataFolder() . "pos.yml", Config::YAML);
+        $this->coords = $this->coordinates->getAll();
      $this->getServer()->getScheduler()->scheduleRepeatingTask(new StatusSignTask($this), 20 * 3);
   }
   
