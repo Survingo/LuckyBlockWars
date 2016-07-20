@@ -25,9 +25,7 @@ use pocketmine\Player;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use Survingo\LuckyBlockWars\tasks\WaitPopupTask;
-use Survingo\LuckyBlockWars\tasks\StartGameTask;
-use Survingo\LuckyBlockWars\tasks\StatusSignTask;
+use Survingo\LuckyBlockWars\tasks\{WaitPopupTask, StartGameTask, StatusSignTask};
 
 class LuckyBlockWars extends PluginBase{
    
