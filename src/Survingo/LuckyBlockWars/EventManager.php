@@ -21,14 +21,10 @@ limitations under the License.
 
 namespace Survingo\LuckyBlockWars;
 
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\SignChangeEvent;
+use pocketmine\event\block\{BlockBreakEvent, SignChangeEvent};
 use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerQuitEvent;
-use Survingo\LuckyBlockWars\game\LuckyBlocks;
-use Survingo\LuckyBlockWars\game\UnluckyBlocks;
+use pocketmine\event\player\{PlayerDeathEvent, PlayerInteractEvent, PlayerQuitEvent};
+use Survingo\LuckyBlockWars\game\{LuckyBlocks, UnluckyBlocks};
 
 class EventManager implements Listener{
   /** @var LuckyBlockWars */
