@@ -22,8 +22,7 @@ limitations under the License.
 namespace Survingo\LuckyBlockWars\tasks;
 
 use pocketmine\level\Position;
-use pocketmine\scheduler\PluginTask;
-use pocketmine\scheduler\ServerScheduler;
+use pocketmine\scheduler\{PluginTask, ServerScheduler};
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
 class StartGameTask extends PluginTask{
