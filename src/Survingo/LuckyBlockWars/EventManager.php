@@ -46,10 +46,10 @@ class EventManager implements Listener{
               }
            }else{
               $event->setCancelled(true);
-              $event->getPlayer()->sendMessage($this->plugin->msg["not-allowed-to-use-luckyblock"]);
+              $this->plugin->sendMessage($event->getPlayer(), "not-allowed-to-use-luckyblock");
            }
         }else{
-           $event->getPlayer()->sendMessage($this->plugin->msg["game-is-not-running"]);
+           $this->plugin->sendMessage($event->getPlayer(), "game-is-not-running");
         }
      }
   }
@@ -98,7 +98,7 @@ class EventManager implements Listener{
        if($this->plugin->running == false){
           $this->addToGame($event->getPlayer()->getName());
        }else{
-          $event->getPlayer()->sendMessage($this->plugin->cfg["game-is-running"]);
+          $this->plugin->sendMessage($event->getPlayer(), "game-is-running");
        }
     }
  }
