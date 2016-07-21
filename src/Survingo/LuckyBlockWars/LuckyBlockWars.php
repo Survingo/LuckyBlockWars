@@ -87,6 +87,10 @@ class LuckyBlockWars extends PluginBase{
     }
   }
   
+ public function sendMessage(Player $player, $message){
+  $player->sendMessage($this->prefix . $this->msg[$message]);
+ }
+  
  public function onCommand(CommandSender $sender, Command $command, $label, array $args){
     switch(strtolower($command->getName())){
        case "lbw":
