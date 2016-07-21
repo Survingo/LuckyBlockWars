@@ -23,7 +23,7 @@ namespace Survingo\LuckyBlockWars\tasks;
 
 use pocketmine\scheduler\PluginTask;
 use pocketmine\math\Vector3;
-use pocketmine\tile\Sign;
+use pocketmine\tile\Sign as SignTile;
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
 class StatusSignTask extends PluginTask{
@@ -36,15 +36,15 @@ class StatusSignTask extends PluginTask{
   }
   
   public function onRun($currentTick){
-    if($this->plugin->cfg["sign-mode"]){
-      $tile = $this->plugin->getServer()->getLevelByName($this->plugin->cfg["sign-world"])->getTile(new Vector3($this->plugin->cfg["sign-x"], $this->plugin->cfg["sign-y"], $this->plugin->cfg["sign-z"]));
-      if($tile instanceof Sign){
+    if($this->plugin->pos["sign-mode"]){
+      $tile = $this->plugin->getServer()->getLevelByName($this->plugin->pos["sign-world"])->getTile(new Vector3($this->plugin->pos["sign-x"], $this->plugin->pos["sign-y"], $this->plugin->pos["sign-z"]));
+      if($tile instanceof SignTile){
         if($this->plugin->running == true){
-          $tile->setText("§l[§6L§eB§cW§f]", "§cRunning", "Players", "§1" . count($this->plugin->players) . "§7/§9" . $this->plugin->cfg["needed-players"]);
-          }elseif($this->plugin->running == false and count($this->plugin->reds) !== $this->plugin->cfg["needed-players"]){
-            $tile->setText("§l[§6L§eB§cW§f]", "§aJoin", "Players", "§1" . count($this->plugin->players) . "§7/§9" . $this->plugin->cfg["needed-players"]);
-            }elseif($this->plugin->running == false and count($this->plugin->players) == $this->plugin->cfg["needed-players"]){
-              $tile->setText("§l[§6L§eB§cW§f]", "§6Full", "Players", "§1" . count($this->plugin->players) . "§7/§9" . $this->plugin->cfg["needed-players"]);
+          $tile->setText("§l[§6L§eB§cW§f]", "§cRunning", "Players", "§1" . count($this->plugin->players) . "§7/§9" . $this->plugin->getConfig()->get("needed-players"));
+          }elseif($this->plugin->running == false and count($this->plugin->reds) !== $this->plugin->getConfig()->get("needed-players")){
+            $tile->setText("§l[§6L§eB§cW§f]", "§aJoin", "Players", "§1" . count($this->plugin->players) . "§7/§9" . $this->plugin->getConfig()->get("needed-players"));
+            }elseif($this->plugin->running == false and count($this->plugin->players) == $this->plugin->getConfig()->get("needed-players")){
+              $tile->setText("§l[§6L§eB§cW§f]", "§6Full", "Players", "§1" . count($this->plugin->players) . "§7/§9" . $this->plugin->getConfig()->get("needed-players"));
             }
       }
     }
