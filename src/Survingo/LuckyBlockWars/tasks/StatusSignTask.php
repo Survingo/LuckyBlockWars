@@ -36,7 +36,7 @@ class StatusSignTask extends PluginTask{
   }
   
   public function onRun($currentTick){
-    if($this->plugin->cfg["sign-mode"] === true){
+    if($this->plugin->cfg["sign-mode"]){
       $tile = $this->plugin->getServer()->getLevelByName($this->plugin->cfg["sign-world"])->getTile(new Vector3($this->plugin->cfg["sign-x"], $this->plugin->cfg["sign-y"], $this->plugin->cfg["sign-z"]));
       if($tile instanceof Sign){
         if($this->plugin->running == true){
