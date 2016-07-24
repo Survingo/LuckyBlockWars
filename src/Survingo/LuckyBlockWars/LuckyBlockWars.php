@@ -1,22 +1,23 @@
 <?php
 
-/*
- _               _          ____  _            _   __        __             
-| |   _   _  ___| | ___   _| __ )| | ___   ___| | _\ \      / /_ _ _ __ ___ 
-| |  | | | |/ __| |/ / | | |  _ \| |/ _ \ / __| |/ /\ \ /\ / / _` | '__/ __|
-| |__| |_| | (__|   <| |_| | |_) | | (_) | (__|   <  \ V  V / (_| | |  \__ \
-|_____\__,_|\___|_|\_\\__, |____/|_|\___/ \___|_|\_\  \_/\_/ \__,_|_|  |___/
-                      |___/
-   Copyright 2016 Survingo
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-       http://www.apache.org/licenses/LICENSE-2.0
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-limitations under the License.
+/**
+ * 
+ *  _               _          ____  _            _   __        __             
+ * | |   _   _  ___| | ___   _| __ )| | ___   ___| | _\ \      / /_ _ _ __ ___ 
+ * | |  | | | |/ __| |/ / | | |  _ \| |/ _ \ / __| |/ /\ \ /\ / / _` | '__/ __|
+ * | |__| |_| | (__|   <| |_| | |_) | | (_) | (__|   <  \ V  V / (_| | |  \__ \
+ * |_____\__,_|\___|_|\_\\__, |____/|_|\___/ \___|_|\_\  \_/\_/ \__,_|_|  |___/
+ *                       |___/
+ *   Copyright 2016 Survingo
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
 */
 
 namespace Survingo\LuckyBlockWars;
@@ -60,22 +61,34 @@ class LuckyBlockWars extends PluginBase{
   public function onDisable(){
      $this->getServer()->getLogger()->info($this->prefix . "Disabling plugin...");
   }
+  
+  /**
+   * @api
+   * @param array[] $things Array structure to get an random of it.
+   * @return int Returns a random thing in the array.
+  */ 
  
- public function getRandom(array $things){
+  public function getRandom(array $things){
     if(is_array($things)) return $things[array_rand($things, 1)];
- }
-
- public function addToGame($name){
+  }
+  
+  /**
+   * @param string $name Player's name
+   * @return boolean
+  */ 
+  public function addToGame($name){
     if(count($this->players !== $this->getConfig()->get("needed-players"))){
        if(!in_array($name, $this->players)){
           array_push($this->players, $name);
           $this->getServer()->getPlayer($name)->teleport(new Position($this->coords["lobby-x"], $this->coords["lobby-y"], $this->coords["lobby-z"], $this->coords["lobby-world"]));
           return true;
+       }else{
+         return false;
        }
     }
- }
- 
- public function startGame(){
+  }
+  
+  public function startGame(){
     if(count($this->players == $this->getConfig()->get("needed-players"))){
        foreach($this->getServer()->getPlayer($this->players) as $player){
           $player->sendMessage("[LuckyBlockWars] Starting game...");
@@ -87,11 +100,21 @@ class LuckyBlockWars extends PluginBase{
     }
   }
   
- public function sendMessage(Player $player, $message){
-  $player->sendMessage($this->prefix . $this->msg[$message]);
- }
+  /**
+   * @param Player $player|string $message
+  */
+  public function sendMessage(Player $player, $message){
+    $player->sendMessage($this->prefix . $this->msg[$message]);
+  }
   
- public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+  /**
+   * @param CommandSender $sender
+   * @param Command $command
+   * @param string $label
+   * @param array $args
+   * @return boolean
+  */ 
+  public function onCommand(CommandSender $sender, Command $command, $label, array $args){
     switch(strtolower($command->getName())){
        case "lbw":
           if($sender instanceof Player){
@@ -145,6 +168,6 @@ class LuckyBlockWars extends PluginBase{
                 break;
           }
     }
- }
+  }
  
 }
