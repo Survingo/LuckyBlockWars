@@ -1,22 +1,23 @@
 <?php
 
-/*
- _               _          ____  _            _   __        __             
-| |   _   _  ___| | ___   _| __ )| | ___   ___| | _\ \      / /_ _ _ __ ___ 
-| |  | | | |/ __| |/ / | | |  _ \| |/ _ \ / __| |/ /\ \ /\ / / _` | '__/ __|
-| |__| |_| | (__|   <| |_| | |_) | | (_) | (__|   <  \ V  V / (_| | |  \__ \
-|_____\__,_|\___|_|\_\\__, |____/|_|\___/ \___|_|\_\  \_/\_/ \__,_|_|  |___/
-                      |___/
-   Copyright 2016 Survingo
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-       http://www.apache.org/licenses/LICENSE-2.0
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-limitations under the License.
+/**
+ * 
+ * _               _          ____  _            _   __        __             
+ * | |   _   _  ___| | ___   _| __ )| | ___   ___| | _\ \      / /_ _ _ __ ___ 
+ * | |  | | | |/ __| |/ / | | |  _ \| |/ _ \ / __| |/ /\ \ /\ / / _` | '__/ __|
+ * | |__| |_| | (__|   <| |_| | |_) | | (_) | (__|   <  \ V  V / (_| | |  \__ \
+ * |_____\__,_|\___|_|\_\\__, |____/|_|\___/ \___|_|\_\  \_/\_/ \__,_|_|  |___/
+ *                       |___/
+ *   Copyright 2016 Survingo
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
 */
 
 namespace Survingo\LuckyBlockWars;
@@ -34,6 +35,10 @@ class EventManager implements Listener{
     $this->plugin = $plugin;
   }
   
+  /**
+   * @param BlockBreakEvent $event
+   * 
+   */
   public function onBlockBreak(BlockBreakEvent $event){
      if($event->getBlock()->getId() == $this->plugin->getConfig("luckyblock-id")){
         if($this->plugin->running == true){
@@ -54,6 +59,10 @@ class EventManager implements Listener{
      }
   }
   
+  /**
+   * @param SignChangeEvent $event
+   * 
+   */
   public function onSignChange(SignChangeEvent $event){
     if($event->getLine(0) == "[LBW]" or $event->getLine(0) == "[LuckyBlock]" or $event->getLine(0) == "/lbw join"){
        if($event->getPlayer()->hasPermission("lbw.game.create-signs")){
@@ -76,6 +85,10 @@ class EventManager implements Listener{
     }
  }
  
+ /**
+   * @param PlayerDeathEvent $event
+   * 
+   */
  public function onDeath(PlayerDeathEvent $event){
     if($this->plugin->running == true){
        if(in_array($event->getEntity()->getName(), $this->plugin->players)){
@@ -93,6 +106,10 @@ class EventManager implements Listener{
     }
  }
  
+ /**
+   * @param BlockInteractEvent $event
+   * 
+   */
  public function onInteract(PlayerInteractEvent $event){
     if($event->getBlock()->getX() === $this->plugin->cfg["sign-x"] and $event->getBlock()->getY() === $this->plugin->cfg["sign-y"] and $event->getBlock()->getZ() === $this->plugin->cfg["sign-z"]){
        if($this->plugin->running == false){
@@ -103,6 +120,10 @@ class EventManager implements Listener{
     }
  }
  
+ /**
+   * @param BlockQuitEvent $event
+   * 
+   */
  public function onQuit(PlayerQuitEvent $event){
     if($this->plugin->running == true){
        if(in_array($event->getPlayer()->getName(), $this->plugin->players)){
