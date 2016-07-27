@@ -30,11 +30,11 @@ use Survingo\LuckyBlockWars\tasks\{WaitPopupTask, StartGameTask, StatusSignTask}
 
 class LuckyBlockWars extends PluginBase{
    
-  public $running = false;
+  protected $running = false;
   
-  public $prefix = "[§6Lucky§eBlock§cWars§f] ";
+  protected $prefix = "[§6Lucky§eBlock§cWars§f] ";
   
-  public $players = array();
+  protected $players = array();
   
   public $messages;
   
@@ -52,7 +52,7 @@ class LuckyBlockWars extends PluginBase{
        $this->saveResource("messages.yml");
         $this->messages = new Config($this->getDataFolder() . "messages.yml", Config::YAML);
         $this->msg = $this->messages->getAll();
-       $this->saveResource("pos.yml");
+       $this->saveResource("pos.yml"); // TODO: JSON format
         $this->coordinates = new Config($this->getDataFolder() . "pos.yml", Config::YAML);
         $this->coords = $this->coordinates->getAll();
      $this->getServer()->getScheduler()->scheduleRepeatingTask(new StatusSignTask($this), 20 * 3);
