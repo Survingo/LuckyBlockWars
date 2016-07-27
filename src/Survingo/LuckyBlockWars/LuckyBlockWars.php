@@ -155,12 +155,14 @@ class LuckyBlockWars extends PluginBase{
              case "play":
                 if($sender instanceof Player){
                    if($sender->hasPermission("lbw.command.join")){
-                      $this->addToGame($sender);
+                      $this->addToGame($sender->getName());
                    }else{
                       $sender->sendMessage("§cYou do not have the permission to do that!");
+                      return true;
                    }
                 }else{
                    $sender->sendMessage("§cYou can not run that command via the console!");
+                   return true;
                 }
              default:
                 $sender->sendMessage($this->prefix . "Unknown command. Type §7/lbw§f to get a list of commands.");
