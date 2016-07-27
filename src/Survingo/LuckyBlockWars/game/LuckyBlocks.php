@@ -28,11 +28,11 @@ use pocketmine\item\Item;
 use Survingo\LuckyBlockWars\LuckyBlockWars;
 
 class LuckyBlocks{
-  
+  /** @var LuckyBlockWars $plugin */
   private $plugin;
-  
+  /** @var Block $block */
   private $block;
-  
+  /** @var Player $player */
   private $player;
   
   public function __construct(LuckyBlockWars $plugin, Block $block, Player $player){
