@@ -26,14 +26,15 @@ use pocketmine\Player;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
+use pocketmine\command\{Command, CommandSender};
 use Survingo\LuckyBlockWars\tasks\{WaitPopupTask, StartGameTask, StatusSignTask};
 
 class LuckyBlockWars extends PluginBase{
-   
+   /** @var boolean $running */
   protected $running = false;
-  
+  /** @var string $prefix */
   protected $prefix = "[§6Lucky§eBlock§cWars§f] ";
-  
+  /** @var $players[] */
   protected $players = array();
   
   public $messages;
@@ -45,7 +46,7 @@ class LuckyBlockWars extends PluginBase{
   public $coords;
    
   public function onEnable(){
-     $this->getServer()->getLogger()->info($this->prefix . "Enabling " . $this->getDescription()->getFullName() . " by Survingo...");
+     $this->getServer()->getLogger()->info($this->prefix . "Enabling " . $this->getDescription()->getFullName() . " by Survingo...\n§bThis plugin is still in alpha.");
      $this->getServer()->getPluginManager()->registerEvents(new EventManager($this), $this);
       @mkdir($this->getDataFolder());
        $this->saveDefaultConfig();
