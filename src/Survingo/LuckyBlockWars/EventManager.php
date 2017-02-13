@@ -97,7 +97,7 @@ class EventManager implements Listener{
           $event->getEntity()->teleport($this->plugin->getServer()->getLevelByName($this->plugin->getConfig()->get("respawn-level"))->getSafeSpawn());
        }
        if(count($this->plugin->players == 1)){
-          $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
+          $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
           $this->plugin->getServer()->broadcastMessage($this->plugin->prefix . str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->msg["won-broadcast"]));
           $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
           $this->plugin->players = array();
