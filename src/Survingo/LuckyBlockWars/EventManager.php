@@ -131,7 +131,7 @@ class EventManager implements Listener{
           $event->setQuitMessage($this->plugin->prefix . str_replace("{name}", $event->getPlayer()->getName(), $this->plugin->msg["quit-message"]));
        }
        if(count($this->plugin->players) == 1){
-          $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
+          $this->plugin->getServer()->getPlayer($this->plugin->players)->teleport($this->plugin->getServer()->getLevelByName($this->plugin->cfg["respawn-level"])->getSafeSpawn());
           $this->plugin->getServer()->broadcastMessage(str_replace(["{name}", "{health}"], [$this->plugin->players, $this->plugin->getServer()->getPlayer($this->plugin->players)->getHealth()], $this->plugin->cfg["won-broadcast"]));
           $this->plugin->getServer()->getPlayer($this->plugin->players)->setHealth(20);
           $this->plugin->players = array();
